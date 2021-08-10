@@ -42,7 +42,7 @@ function AfterUpload({ link }) {
         Uploaded Successfully
       </Typography>
       <Box className={classes.box}>
-        <img alt="" src="" className={classes.uploadeImage} />
+        <img alt="" src={link} className={classes.uploadeImage} />
       </Box>
       <TextField
         value={link}

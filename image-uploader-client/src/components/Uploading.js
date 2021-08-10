@@ -1,6 +1,8 @@
 import { Box, LinearProgress, Paper, Typography } from "@material-ui/core";
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import axios from "axios";
+// import { UploadHandler } from "../utils/uploadHandler";
 
 const useStyles = makeStyles((theme) => ({
   uploading: {
@@ -22,15 +24,24 @@ function Uploading(props) {
   const classes = useStyles();
 
   React.useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((prevProgress) =>
-        prevProgress >= 100 ? 10 : prevProgress + 10
-      );
-    }, 800);
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
+      const config = {
+        onUploadProgress: function (progressEvent) {
+          var percentCompleted = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          );
+          setProgress(percentCompleted)
+        },
+      }
+    
+      let Data = new FormData()
+      Data.append('image', props.File)
+      axios.post('http://localhost:8000/imageapp/images/', Data, config)
+      .then(res => {
+        props.setLink(res.data.image)
+        props.setstatus('done')
+      })
+  }, [props]);
+
   return (
     <Paper className={classes.uploading}>
       <Typography variant="h6" component="h1">
