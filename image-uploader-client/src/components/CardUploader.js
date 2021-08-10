@@ -18,11 +18,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function CardUploader() {
-  const [File, setFile] = useState({});
+  const [File, setFile] = useState();
 
   const handleChange = (e) => {
-    
+    setFile(e.target.files[0])
   };
+
+  console.log(File);
 
   const classes = useStyles();
   return (
@@ -33,7 +35,7 @@ function CardUploader() {
       <Typography variant="subtitle2" color="textSecondary">
         File should be jpeg, Png...
       </Typography>
-      <DropArea />
+      <DropArea setFile={setFile} />
       <Typography variant="body2">Or</Typography>
       <input
         type="file"

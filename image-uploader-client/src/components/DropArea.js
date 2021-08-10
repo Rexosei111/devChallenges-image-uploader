@@ -28,13 +28,30 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-function DropArea() {
+function DropArea({setFile}) {
+
+    const dragEnter = (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+    }
+
+    const dragOver = (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+    }
+
+    const drop = (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        const file = e.dataTransfer.files[0]
+        setFile(file)
+    }
 
     const classes = useStyles()
 
     return (
         <div className={classes.container}>
-            <div className={classes.dropArea}>
+            <div className={classes.dropArea} onDragEnter={dragEnter} onDragOver={dragOver} onDrop={drop}>
                 <Typography variant="body1" className={classes.info}>Drag & Drop your image here</Typography>
             </div>
 
