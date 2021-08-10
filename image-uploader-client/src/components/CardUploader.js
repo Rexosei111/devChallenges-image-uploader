@@ -5,13 +5,13 @@ import DropArea from "./DropArea";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    padding: "36px 32px",
+    padding: "36px 31px",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     gap: 25,
-    width: 402,
-    height: 469,
+    width: 400,
+    height: 455,
     borderRadius: 12,
     boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
   },

@@ -18,7 +18,9 @@ const useStyles = makeStyles((theme) => ({
 
 function Uploading(props) {
   const [Progress, setProgress] = useState(0);
+  
   const classes = useStyles();
+
   React.useEffect(() => {
     const timer = setInterval(() => {
       setProgress((prevProgress) =>
