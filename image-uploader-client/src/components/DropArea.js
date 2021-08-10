@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-function DropArea({setFile}) {
+function DropArea({setFile, File}) {
 
     const dragEnter = (e) => {
         e.preventDefault()

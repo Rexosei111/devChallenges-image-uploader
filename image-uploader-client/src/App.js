@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from "@material-ui/core/styles"
 import CardUploader from './components/CardUploader'
+import Uploading from './components/Uploading'
 
 const useStyles = makeStyles(theme => ({
     app: {
@@ -13,11 +14,22 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function App() {
-
     const classes = useStyles()
+    const [File, setFile] = useState()
+
+    const [status, setstatus] = useState("")
+
+    if(status === "uploading") {
+        return (<div className={classes.app}><Uploading status={status} setstatus={setstatus} File={File} /></div>)
+    }
+
+    if(status === "done") {
+        return (<div className={classes.app}></div>)
+    }
+
     return (
         <div className={classes.app}>
-            <CardUploader />
+            <CardUploader File={File} setFile={setFile} setstatus={setstatus}/>
         </div>
     )
 }
