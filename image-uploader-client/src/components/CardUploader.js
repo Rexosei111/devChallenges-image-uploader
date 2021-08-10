@@ -3,25 +3,28 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Button, Paper, Typography } from "@material-ui/core";
 import DropArea from "./DropArea";
 import Alert from "./Alert";
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    padding: "36px 31px",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    gap: 25,
-    width: 400,
-    height: 455,
-    borderRadius: 12,
-    boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
-  },
-}));
+
 
 function CardUploader({ File, setFile, setstatus, open, setOpen }) {
+  const matches = useMediaQuery('(max-width:500px)');
   const [message, setmessage] = useState();
   const [severity, setSeverity] = useState("success");
-
+  
+  const useStyles = makeStyles((theme) => ({
+    paper: {
+      padding: "36px 31px",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      gap: 25,
+      width: matches ? 300 : 400,
+      height: 500,
+      borderRadius: 12,
+      boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+    },
+  }));
   const handleChange = (e) => {
     setFile(e.target.files[0]);
   };

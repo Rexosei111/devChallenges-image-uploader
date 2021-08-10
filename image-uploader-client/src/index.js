@@ -2,11 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from "./App"
+import { ThemeProvider, createTheme } from '@material-ui/core/styles'
+import { CssBaseline } from '@material-ui/core';
+import { responsiveFontSizes } from '@material-ui/core';
+
+const Theme = responsiveFontSizes(createTheme({
+  palette: {
+    type: 'light',
+  },
+}))
 
 ReactDOM.render(
-  <React.StrictMode>
+  <ThemeProvider theme={Theme}>
+  <CssBaseline />
     <App />
-  </React.StrictMode>,
+  </ThemeProvider>,
   document.getElementById('root')
 );
 
