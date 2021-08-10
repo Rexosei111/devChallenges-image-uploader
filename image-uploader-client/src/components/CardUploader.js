@@ -1,7 +1,8 @@
-import React, { useEffect} from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Paper, Typography } from "@material-ui/core";
 import DropArea from "./DropArea";
+import Alert from "./Alert";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -17,16 +18,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function CardUploader({File, setFile, setstatus}) {
-  
+function CardUploader({ File, setFile, setstatus, open, setOpen }) {
+  const [message, setmessage] = useState();
+  const [severity, setSeverity] = useState("success");
 
   const handleChange = (e) => {
-    setFile(e.target.files[0])
+    setFile(e.target.files[0]);
   };
 
   useEffect(() => {
-    File ? setstatus("uploading") : setstatus("")
-  }, [File, setstatus])
+    File ? setstatus("uploading") : setstatus("");
+  }, [File, setstatus]);
 
   const classes = useStyles();
   return (
@@ -37,7 +39,13 @@ function CardUploader({File, setFile, setstatus}) {
       <Typography variant="subtitle2" color="textSecondary">
         File should be jpeg, Png...
       </Typography>
-      <DropArea setFile={setFile} File={File} />
+      <DropArea
+        setFile={setFile}
+        File={File}
+        setOpen={setOpen}
+        setmessage={setmessage}
+        setSeverity={setSeverity}
+      />
       <Typography variant="body2">Or</Typography>
       <input
         type="file"
@@ -58,6 +66,12 @@ function CardUploader({File, setFile, setstatus}) {
           Choose a file
         </Button>
       </label>
+      <Alert
+        open={open}
+        setOpen={setOpen}
+        message={message}
+        severity={severity}
+      />
     </Paper>
   );
 }
