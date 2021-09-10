@@ -2,7 +2,6 @@ import { Box, LinearProgress, Paper, Typography } from "@material-ui/core";
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
-// import { UploadHandler } from "../utils/uploadHandler";
 
 const useStyles = makeStyles((theme) => ({
   uploading: {
@@ -35,7 +34,7 @@ function Uploading(props) {
     
       let Data = new FormData()
       Data.append('image', props.File)
-      axios.post('http://localhost:8000/imageapp/images/', Data, config)
+      axios.post('https://rexo.pythonanywhere.com/imageapp/images/', Data, config)
       .then(res => {
         props.setLink(res.data.image)
         props.setstatus('done')
