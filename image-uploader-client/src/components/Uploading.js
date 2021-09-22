@@ -19,26 +19,25 @@ const useStyles = makeStyles((theme) => ({
 
 function Uploading(props) {
   const [Progress, setProgress] = useState(0);
-  
+
   const classes = useStyles();
 
   React.useEffect(() => {
-      const config = {
-        onUploadProgress: function (progressEvent) {
-          var percentCompleted = Math.round(
-            (progressEvent.loaded * 100) / progressEvent.total
-          );
-          setProgress(percentCompleted)
-        },
-      }
-    
-      let Data = new FormData()
-      Data.append('image', props.File)
-      axios.post('https://rexo.pythonanywhere.com/imageapp/images/', Data, config)
-      .then(res => {
-        props.setLink(res.data.image)
-        props.setstatus('done')
-      })
+    const config = {
+      onUploadProgress: function (progressEvent) {
+        var percentCompleted = Math.round(
+          (progressEvent.loaded * 100) / progressEvent.total
+        );
+        setProgress(percentCompleted);
+      },
+    };
+
+    let Data = new FormData();
+    Data.append("image", props.File);
+    axios.post("https://liel2c.deta.dev/upload/", Data, config).then((res) => {
+      props.setLink(res.data.link);
+      props.setstatus("done");
+    });
   }, [props]);
 
   return (
@@ -46,7 +45,7 @@ function Uploading(props) {
       <Typography variant="h6" component="h1">
         Uploading...
       </Typography>
-      <Box display="flex" alignItems="center" style={{width: "100%"}}>
+      <Box display="flex" alignItems="center" style={{ width: "100%" }}>
         <Box width="100%" mr={1}>
           <LinearProgress variant="determinate" value={Progress} />
         </Box>
