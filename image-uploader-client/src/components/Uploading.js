@@ -33,8 +33,9 @@ function Uploading(props) {
     };
 
     let Data = new FormData();
-    Data.append("image", props.File);
-    axios.post("https://liel2c.deta.dev/upload/", Data, config).then((res) => {
+    Data.append("file", props.File);
+
+    axios.post("https://liel2c.deta.dev/upload", Data, config).then((res) => {
       props.setLink(res.data.link);
       props.setstatus("done");
     });
