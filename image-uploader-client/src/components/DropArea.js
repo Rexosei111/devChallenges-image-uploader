@@ -41,7 +41,7 @@ const fileTypes = [
   "image/x-icon",
 ];
 
-function DropArea({ setFile, File, setOpen, setmessage, setSeverity }) {
+function DropArea({ setFile, setOpen, setmessage, setSeverity }) {
   const dragEnter = (e) => {
     e.preventDefault();
     e.stopPropagation();
