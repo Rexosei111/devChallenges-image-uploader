@@ -9,7 +9,6 @@ import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardActions from "@material-ui/core/CardActions";
-import Alert from "./Alert";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const useStyles = makeStyles((theme) => ({
@@ -19,16 +18,13 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
     gap: 25,
-    width: 402,
     minHeight: 469,
     borderRadius: 12,
     boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
   },
   media: {
-    height: 0,
     borderRadius: 12,
     width: "100%",
-    paddingTop: "56.25%",
   },
   header: {
     display: "flex",
@@ -37,16 +33,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AfterUpload({ link, open, setOpen }) {
-  const matches = useMediaQuery("(max-width:500px)");
+function AfterUpload({ link, setOpen, setmessage, setSeverity, open }) {
+  const matches = useMediaQuery("(min-width:500px)");
 
   const copy_to_clipboard = () => {
     navigator.clipboard.writeText(link);
+    setmessage("Link copied to clipboard");
+    setSeverity("success");
     setOpen(true);
   };
   const classes = useStyles();
   return (
-    <Card className={classes.paper} style={{ width: matches ? 300 : 402 }}>
+    <Card className={classes.paper} style={{ width: matches ? 402 : "100%" }}>
       <CardHeader
         className={classes.header}
         avatar={
@@ -57,8 +55,9 @@ function AfterUpload({ link, open, setOpen }) {
       />
       <CardMedia
         className={classes.media}
-        image={link}
-        title="Uploaded Image"
+        component="img"
+        src={link}
+        alt="Uploaded Image"
       />
       <CardActions
         style={{
@@ -76,8 +75,8 @@ function AfterUpload({ link, open, setOpen }) {
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
-                {matches ? (
-                  <IconButton>
+                {!matches ? (
+                  <IconButton onClick={copy_to_clipboard}>
                     <AssignmentIcon fontSize="small" />
                   </IconButton>
                 ) : (
@@ -96,7 +95,6 @@ function AfterUpload({ link, open, setOpen }) {
           }}
         />
       </CardActions>
-      <Alert open={open} setOpen={setOpen} />
     </Card>
   );
 }

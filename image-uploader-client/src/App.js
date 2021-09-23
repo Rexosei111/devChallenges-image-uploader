@@ -9,6 +9,8 @@ function App() {
   const [Link, setLink] = useState("");
   const [status, setstatus] = useState("");
   const [open, setOpen] = useState(false);
+  const [message, setmessage] = useState();
+  const [severity, setSeverity] = useState("error");
 
   if (status === "uploading") {
     return (
@@ -26,20 +28,37 @@ function App() {
 
   if (status === "done") {
     return (
-      <Wrapper>
-        <AfterUpload link={Link} open={open} setOpen={setOpen} />
+      <Wrapper
+        open={open}
+        setOpen={setOpen}
+        message={message}
+        severity={severity}
+      >
+        <AfterUpload
+          link={Link}
+          setOpen={setOpen}
+          setmessage={setmessage}
+          setSeverity={setSeverity}
+          open={open}
+        />
       </Wrapper>
     );
   }
 
   return (
-    <Wrapper>
+    <Wrapper
+      open={open}
+      setOpen={setOpen}
+      message={message}
+      severity={severity}
+    >
       <CardUploader
         File={File}
         setFile={setFile}
         setstatus={setstatus}
-        open={open}
+        setmessage={setmessage}
         setOpen={setOpen}
+        setSeverity={setSeverity}
       />
     </Wrapper>
   );
